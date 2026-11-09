@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>糖心 - 甜品烘焙与甜点文化</title>
+  <meta name="description" content="糖心是专注甜品烘焙与甜点文化的垂直内容页，汇集焦糖布丁、巴斯克蛋糕、马卡龙等具体甜点条目，提供配方解析、原料对比与探店指南，适合烘焙爱好者和甜品控日常浏览参考。">
+  <meta name="keywords" content="焦糖布丁,巴斯克蛋糕,马卡龙配方,甜点探店,烘焙原料">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23d97746'/%3E%3Cpath d='M16 6c2 4 6 6 6 11a6 6 0 1 1-12 0c0-5 4-7 6-11z' fill='%23fff4e6'/%3E%3C/svg%3E">
+  <style>
+    /* ---------- 全局变量与重置 ---------- */
+    :root {
+      --color-primary: #b45f3b;
+      --color-primary-dark: #8e4428;
+      --color-primary-light: #f5e1d8;
+      --color-accent: #e8a87c;
+      --color-accent-soft: #fae6d9;
+      --color-bg: #fdf8f4;
+      --color-surface: #ffffff;
+      --color-text: #2e241f;
+      --color-text-secondary: #6b5d54;
+      --color-text-muted: #9a8b80;
+      --color-border: #e8dcd3;
+      --color-border-light: #f2eae4;
+      --shadow-sm: 0 2px 6px rgba(90, 60, 40, 0.05);
+      --shadow-md: 0 6px 18px rgba(90, 60, 40, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+      --font-serif: "Songti SC", "Noto Serif SC", "STSong", Georgia, serif;
+      --sticky-offset: 108px;
+      --container: 1320px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--color-primary-dark);
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* ---------- 吸顶公告条 ---------- */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-primary-dark);
+      color: #fff;
+      font-size: 14px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .announce-bar strong {
+      background: var(--color-accent);
+      color: var(--color-primary-dark);
+      padding: 1px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .announce-bar span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ---------- 吸顶页头 ---------- */
+    .site-header {
+      position: sticky;
+      top: 36px;
+      z-index: 90;
+      background: rgba(253, 248, 244, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 12px 16px;
+    }
+
+    .header-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand svg {
+      width: 38px;
+      height: 38px;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 1px;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .header-nav a {
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .header-nav a:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+
+    .header-search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-search input {
+      padding: 8px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 30px;
+      background: var(--color-surface);
+      font-size: 14px;
+      width: 180px;
+      outline: none;
+      transition: border-color 0.2s, width 0.2s;
+    }
+
+    .header-search input:focus {
+      border-color: var(--color-primary);
+      width: 220px;
+    }
+
+    .header-search button {
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .header-search button:hover {
+      background: var(--color-primary-dark);
+    }
+
+    /* ---------- 首屏 ---------- */
+    .hero {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 52px 16px 44px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-size: 13px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      line-height: 1.15;
+      color: var(--color-primary-dark);
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 520px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-primary-dark);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--color-primary-dark);
+      border: 1.5px solid var(--color-primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--color-primary-light);
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+    }
+
+    /* ---------- 主内容区（三栏门户） ---------- */
+    .main-area {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 16px 56px;
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 250px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ---------- 左频道索引 ---------- */
+    .channel-sidebar {
+      position: sticky;
+      top: var(--sticky-offset);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 20px 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .channel-sidebar h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-text-muted);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .channel-list li {
+      margin-bottom: 2px;
+    }
+
+    .channel-list a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .channel-list a:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+
+    /* ---------- 主内容列 ---------- */
+    .content-column {
+      min-width: 0;
+    }
+
+    /* 通用板块 */
+    .section-block {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: 23px;
+      color: var(--color-primary-dark);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .section-header .more-link {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .section-header .more-link:hover {
+      color: var(--color-primary);
+    }
+
+    /* 概览段落 */
+    .overview-text p {
+      margin-bottom: 14px;
+      color: var(--color-text-secondary);
+      font-size: 15.5px;
+      line-height: 1.85;
+    }
+
+    .overview-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--color-border-light);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--color-primary-light);
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .card-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--color-text);
+      line-height: 1.4;
+    }
+
+    .card-type {
+      display: inline-block;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-size: 11px;
+      padding: 1px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .card-tags span {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      background: var(--color-border-light);
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border-light);
+      padding-top: 8px;
+    }
+
+    /* 紧凑列表（最新更新） */
+    .update-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .update-item {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border-light);
+      font-size: 15px;
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-time {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      min-width: 72px;
+    }
+
+    .update-title {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .update-desc {
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      margin-left: auto;
+      text-align: right;
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* 分类入口 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .category-item {
+      display: block;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-sm);
+      padding: 16px 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .category-item:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary-dark);
+    }
+
+    .category-item small {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    /* 深度解析正文 */
+    .deep-dive h3 {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      color: var(--color-primary-dark);
+      margin: 22px 0 10px;
+      font-weight: 700;
+    }
+
+    .deep-dive h3:first-child {
+      margin-top: 0;
+    }
+
+    .deep-dive p {
+      font-size: 15.5px;
+      color: var(--color-text-secondary);
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+
+    .deep-dive ul {
+      margin: 8px 0 14px 18px;
+      list-style: disc;
+    }
+
+    .deep-dive ul li {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+
+    /* 体验指南 - 编号步骤 */
+    .guide-steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .guide-step {
+      counter-increment: step;
+      position: relative;
+      padding-left: 48px;
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.75;
+    }
+
+    .guide-step::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 32px;
+      height: 32px;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .guide-step strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* FAQ */
+    .faq-list details {
+      border-bottom: 1px solid var(--color-border-light);
+      padding: 14px 0;
+    }
+
+    .faq-list details:last-child {
+      border-bottom: none;
+    }
+
+    .faq-list summary {
+      font-weight: 600;
+      font-size: 15.5px;
+      color: var(--color-text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-list summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-list summary::after {
+      content: "+";
+      font-size: 20px;
+      color: var(--color-primary);
+      font-weight: 300;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-list details[open] summary::after {
+      content: "−";
+    }
+
+    .faq-answer {
+      padding: 10px 0 2px 0;
+      font-size: 14.5px;
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* 用户评论 */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .comment-item {
+      background: var(--color-bg);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      border: 1px solid var(--color-border-light);
+    }
+
+    .comment-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .comment-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .comment-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .comment-text {
+      font-size: 13.5px;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+    }
+
+    /* 相关资讯 */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .news-img {
+      width: 100px;
+      height: 70px;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .news-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .news-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--color-text);
+    }
+
+    .news-date {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+    }
+
+    .news-summary {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 相关推荐标签 */
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag-cloud a {
+      display: inline-block;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .tag-cloud a:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary-dark);
+    }
+
+    /* 热门榜单 */
+    .rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+
+    .rank-item:hover {
+      background: var(--color-bg);
+    }
+
+    .rank-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .rank-item:nth-child(1) .rank-num {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .rank-item:nth-child(2) .rank-num {
+      background: var(--color-accent);
+      color: var(--color-primary-dark);
+    }
+
+    .rank-item:nth-child(3) .rank-num {
+      background: var(--color-accent-soft);
+      color: var(--color-primary-dark);
+    }
+
+    .rank-title {
+      font-size: 15px;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .rank-score {
+      font-size: 13px;
+      color: var(--color-primary);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---------- 右辅助栏 ---------- */
+    .aside-column {
+      position: sticky;
+      top: var(--sticky-offset);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .aside-box {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 20px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .aside-box h2 {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--color-primary-dark);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .aside-hot-list li {
+      margin-bottom: 12px;
+    }
+
+    .aside-hot-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .aside-hot-list a {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    .aside-hot-list a:hover {
+      color: var(--color-primary);
+    }
+
+    .aside-hot-list .hot-score {
+      color: var(--color-text-muted);
+      font-size: 12px;
+    }
+
+    .aside-update-feed li {
+      font-size: 13.5px;
+      color: var(--color-text-secondary);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-border-light);
+      line-height: 1.5;
+    }
+
+    .aside-update-feed li:last-child {
+      border-bottom: none;
+    }
+
+    .aside-update-feed time {
+      display: block;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-bottom: 2px;
+    }
+
+    /* ---------- 页尾 ---------- */
+    .site-footer {
+      background: #2e241f;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 48px 16px 24px;
+      margin-top: 20px;
+    }
+
+    .footer-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 36px;
+    }
+
+    .footer-brand .brand-name {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      margin-top: 10px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 280px;
+    }
+
+    .footer-col h3 {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    .footer-col a:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-bottom {
+      max-width: var(--container);
+      margin: 36px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ---------- 搜索无结果提示 ---------- */
+    .no-results {
+      display: none;
+      padding: 30px 0;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 15px;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1100px) {
+      .main-area {
+        grid-template-columns: 160px minmax(0, 1fr);
+      }
+
+      .aside-column {
+        display: none;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 36px 16px 32px;
+        text-align: center;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-desc {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual svg {
+        max-width: 280px;
+      }
+
+      .main-area {
+        grid-template-columns: 1fr;
+      }
+
+      .channel-sidebar {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 14px 12px;
+      }
+
+      .channel-sidebar h2 {
+        width: 100%;
+        margin-bottom: 6px;
+      }
+
+      .channel-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .channel-list a {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .header-inner {
+        gap: 12px;
+      }
+
+      .header-search {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .header-search input {
+        flex: 1;
+        width: auto;
+      }
+
+      .header-search input:focus {
+        width: auto;
+      }
+
+      .update-desc {
+        display: none;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .section-block {
+        padding: 20px 16px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .news-item {
+        flex-direction: column;
+      }
+
+      .news-img {
+        width: 100%;
+        height: 140px;
+      }
+
+      .announce-bar {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar" role="status">
+    <strong>新品</strong>
+    <span>本周新增 8 款秋季甜点配方 · 巴斯克焦烧芝士蛋糕 11 月 6 日上线</span>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/#top" class="brand" aria-label="糖心首页">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="19" cy="19" r="17" fill="#f5e1d8"/>
+          <path d="M19 6c2.5 5 7 7.5 7 13a7 7 0 1 1-14 0c0-5.5 4.5-8 7-13z" fill="#b45f3b"/>
+          <circle cx="19" cy="20" r="3" fill="#fdf8f4"/>
+        </svg>
+        <span class="brand-name">糖心</span>
+      </a>
+      <nav class="header-nav" aria-label="主题导航">
+        <a href="/#overview">甜点概览</a>
+        <a href="/#featured">精选推荐</a>
+        <a href="/#updates">最新动态</a>
+        <a href="/#categories">分类入口</a>
+        <a href="/#deep-dive">深度解析</a>
+        <a href="/#faq">常见问答</a>
+      </nav>
+      <div class="header-search">
+        <input type="search" id="searchInput" placeholder="搜索甜点、配方、原料…" aria-label="搜索甜点内容">
+        <button type="button" id="searchBtn">搜索</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <span class="hero-eyebrow">甜品烘焙 · 甜点文化</span>
+      <h1>糖心</h1>
+      <p class="hero-desc">
+        汇聚焦糖布丁、巴斯克蛋糕、马卡龙、提拉米苏等具体甜点条目，提供配方拆解、原料对比与探店记录，适合烘焙爱好者和甜品控按类型检索与比较。
+      </p>
+      <div class="hero-actions">
+        <a href="/#featured" class="btn btn-primary">浏览精选甜点</a>
+        <a href="/#deep-dive" class="btn btn-outline">阅读深度解析</a>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="140" width="300" height="150" rx="16" fill="#f5e1d8"/>
+        <rect x="80" y="100" width="260" height="120" rx="12" fill="#e8a87c"/>
+        <rect x="100" y="70" width="220" height="100" rx="10" fill="#fae6d9"/>
+        <circle cx="210" cy="60" r="24" fill="#b45f3b"/>
+        <path d="M210 40c2 4 5.5 6 5.5 10a5.5 5.5 0 1 1-11 0c0-4 3.5-6 5.5-10z" fill="#fdf8f4"/>
+        <rect x="130" y="200" width="160" height="10" rx="5" fill="#fdf8f4" opacity="0.5"/>
+        <rect x="150" y="220" width="120" height="8" rx="4" fill="#fdf8f4" opacity="0.35"/>
+        <circle cx="140" cy="180" r="6" fill="#fdf8f4" opacity="0.6"/>
+        <circle cx="280" cy="180" r="6" fill="#fdf8f4" opacity="0.6"/>
+        <path d="M340 60 Q370 100 340 140" stroke="#b45f3b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M80 60 Q50 100 80 140" stroke="#e8a87c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 主内容区（三栏门户） -->
+  <div class="main-area">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-sidebar" aria-label="频道索引">
+      <h2>频道索引</h2>
+      <ul class="channel-list">
+        <li><a href="/#overview">甜点概览</a></li>
+        <li><a href="/#featured">精选推荐</a></li>
+        <li><a href="/#updates">最新动态</a></li>
+        <li><a href="/#categories">分类入口</a></li>
+        <li><a href="/#deep-dive">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#faq">常见问答</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#recommend">相关推荐</a></li>
+        <li><a href="/#rank">热门榜单</a></li>
+      </ul>
+    </aside>
+
+    <!-- 中主内容 -->
+    <main class="content-column">
+
+      <!-- 板块1：主题领域概览 -->
+      <section class="section-block" id="overview">
+        <div class="section-header">
+          <h2>甜点领域概览</h2>
+        </div>
+        <div class="overview-text">
+          <p>
+            糖心所覆盖的甜品烘焙领域，大致可分成几个具体方向：以焦糖布丁、巴斯克焦烧芝士蛋糕为代表的法式烘焙甜点，强调蛋奶比例与焦化层控制；以马卡龙、达克瓦兹为代表的杏仁粉系甜点，考验蛋白霜稳定性与晾皮时间；以提拉米苏、提拉米苏变体为代表的意式甜点，关注马斯卡彭奶酪与咖啡酒的比例；以及日式轻乳酪蛋糕、抹茶大福等亚洲融合甜点，侧重轻盈口感与茶香搭配。
+          </p>
+          <p>
+            当前这个领域值得关注的新变化集中在原料替代和低糖配方上。2026 年秋季，赤藓糖醇与阿洛酮糖在家庭烘焙中的使用比例上升，焦糖布丁的低糖版本开始出现在更多配方讨论中。同时，巴斯克蛋糕的“流心程度”成为社区比较焦点，中央温度 62—65℃ 的半熟状态与 70℃ 以上的全熟状态在口感上差异明显，选择哪种取决于食用场景与冷藏时间。
+          </p>
+          <p>
+            马卡龙的讨论重心从“裙边高度”转向“壳内组织均匀度”，意式蛋白霜与瑞士蛋白霜在湿度较高的环境下表现不同。提拉米苏则出现无酒精版本与生酮版本的对照尝试。这些具体条目和类型差异构成了糖心日常更新的内容主干。
+          </p>
+        </div>
+      </section>
+
+      <!-- 板块2：精选内容推荐 -->
+      <section class="section-block" id="featured">
+        <div class="section-header">
+          <h2>精选甜点推荐</h2>
+          <a href="/#rank" class="more-link">查看榜单 →</a>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/jiaotangbuding01/400/300" alt="焦糖布丁成品表面焦糖层" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">法式烘焙</span>
+              <h3>经典焦糖布丁</h3>
+              <div class="card-tags"><span>低温慢烤</span><span>焦糖层</span><span>蛋奶比</span></div>
+              <p class="card-desc">全蛋与蛋黄 1:1 配比，150℃ 水浴烤 40 分钟，重点在焦糖层厚度与布丁体气孔控制。</p>
+              <div class="card-meta"><span>评分 9.1</span><span>更新于 11-07</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/basike02/400/300" alt="巴斯克焦烧芝士蛋糕切面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">芝士蛋糕</span>
+              <h3>巴斯克焦烧芝士</h3>
+              <div class="card-tags"><span>流心</span><span>高温快烤</span><span>奶油奶酪</span></div>
+              <p class="card-desc">230℃ 烤 25 分钟形成焦黑表皮，中心温度 62℃ 时出炉可获得流心质地，冷藏后口感更集中。</p>
+              <div class="card-meta"><span>评分 9.4</span><span>更新于 11-06</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/makalong03/400/300" alt="马卡龙外壳与夹心" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">杏仁粉甜点</span>
+              <h3>意式马卡龙</h3>
+              <div class="card-tags"><span>蛋白霜</span><span>晾皮</span><span>裙边</span></div>
+              <p class="card-desc">118℃ 糖浆冲入蛋白制作意式蛋白霜，杏仁粉与糖粉比例 1:1.2，晾皮至表面不粘手再入炉。</p>
+              <div class="card-meta"><span>评分 8.8</span><span>更新于 11-05</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/tilamisu04/400/300" alt="提拉米苏分层杯装" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">意式甜点</span>
+              <h3>经典提拉米苏</h3>
+              <div class="card-tags"><span>马斯卡彭</span><span>咖啡酒</span><span>手指饼干</span></div>
+              <p class="card-desc">马斯卡彭与蛋黄糊比例 2:1，咖啡酒液浸泡手指饼干约 1.5 秒，冷藏 6 小时以上再筛可可粉。</p>
+              <div class="card-meta"><span>评分 9.2</span><span>更新于 11-04</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/ruzhi05/400/300" alt="日式轻乳酪蛋糕切块" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">日式甜点</span>
+              <h3>日式轻乳酪蛋糕</h3>
+              <div class="card-tags"><span>水浴</span><span>蛋白霜</span><span>轻口感</span></div>
+              <p class="card-desc">奶油奶酪与牛奶隔水融化，蛋白霜打至湿性发泡，160℃ 水浴烤 60 分钟，出炉后不回缩的关键在降温速度。</p>
+              <div class="card-meta"><span>评分 8.9</span><span>更新于 11-03</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img class="card-img" src="https://picsum.photos/seed/mochal06/400/300" alt="抹茶大福外皮与馅料" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <span class="card-type">亚洲融合</span>
+              <h3>抹茶大福</h3>
+              <div class="card-tags"><span>糯米皮</span><span>抹茶</span><span>红豆沙</span></div>
+              <p class="card-desc">糯米粉与抹茶粉过筛后蒸 20 分钟，包入红豆沙与淡奶油馅，重点在皮厚度与馅料温度的一致性。</p>
+              <div class="card-meta"><span>评分 8.7</span><span>更新于 11-02</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 板块3：最新更新 / 动态 -->
+      <section class="section-block" id="updates">
+        <div class="section-header">
+          <h2>最新更新与甜点动态</h2>
+        </div>
+        <div class="update-list">
+          <div class="update-item">
+            <span class="update-time">11-08 09:30</span>
+            <span class="update-title">焦糖布丁低糖版配方</span>
+            <span class="update-desc">赤藓糖醇替代 40% 砂糖，焦糖层色泽偏浅</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-07 20:15</span>
+            <span class="update-title">巴斯克流心温度对照</span>
+            <span class="update-desc">62℃ 与 66℃ 中心温度切面对比图</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-07 14:00</span>
+            <span class="update-title">意式马卡龙湿度记录</span>
+            <span class="update-desc">南方回南天晾皮时间延长至 45 分钟</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-06 18:40</span>
+            <span class="update-title">提拉米苏无酒精版</span>
+            <span class="update-desc">用冷萃咖啡替代咖啡酒，风味差异记录</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-06 10:00</span>
+            <span class="update-title">轻乳酪蛋糕水浴法</span>
+            <span class="update-desc">水浴深度 2cm 与 3cm 的膨胀高度对比</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-05 21:10</span>
+            <span class="update-title">抹茶大福皮配方调整</span>
+            <span class="update-desc">糯米粉与粘米粉 3:1 降低粘牙感</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-05 09:20</span>
+            <span class="update-title">达克瓦兹杏仁粉过筛</span>
+            <span class="update-desc">粗颗粒杏仁粉对壳面平整度的影响</span>
+          </div>
+          <div class="update-item">
+            <span class="update-time">11-04 16:30</span>
+            <span class="update-title">焦糖酱熬制温度</span>
+            <span class="update-desc">170℃ 与 180℃ 焦糖风味与苦度差异</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 板块4：分类入口 -->
+      <section class="section-block" id="categories">
+        <div class="section-header">
+          <h2>甜点分类入口</h2>
+        </div>
+        <div class="category-grid">
+          <a href="/#featured" class="category-item">焦糖布丁<small>法式烘焙</small></a>
+          <a href="/#featured" class="category-item">巴斯克蛋糕<small>芝士蛋糕</small></a>
+          <a href="/#featured" class="category-item">马卡龙<small>杏仁粉甜点</small></a>
+          <a href="/#featured" class="category-item">提拉米苏<small>意式甜点</small></a>
+          <a href="/#featured" class="category-item">轻乳酪蛋糕<small>日式甜点</small></a>
+          <a href="/#featured" class="category-item">抹茶大福<small>亚洲融合</small></a>
+          <a href="/#deep-dive" class="category-item">原料对比<small>奶油奶酪 / 杏仁粉</small></a>
+          <a href="/#guide" class="category-item">烘焙入门<small>工具与步骤</small></a>
+        </div>
+      </section>
+
+      <!-- 板块5：深度解析正文 -->
+      <section class="section-block deep-dive" id="deep-dive">
+        <div class="section-header">
+          <h2>深度解析：甜点类型与判断维度</h2>
+        </div>
+
+        <h3>焦糖布丁与巴斯克蛋糕的质地差异来源</h3>
+        <p>
+          焦糖布丁与巴斯克焦烧芝士蛋糕虽然都涉及高温与蛋奶，但质地走向完全不同。焦糖布丁依赖水浴与低温慢烤，使蛋液在 150℃ 左右缓慢凝固，形成细腻无气孔的凝胶结构。巴斯克蛋糕则用 220—230℃ 高温快速烘烤，表面焦化而内部保持半熟状态，依靠奶油奶酪的高脂肪含量维持流心感。两者对中心温度的要求也相反：布丁需要全熟凝固，巴斯克追求 62—65℃ 的半熟区间。
+        </p>
+        <p>
+          判断一款巴斯克蛋糕是否适合自己，可以从三个维度看：切面流心范围、冷藏后质地变化、焦糖表皮苦度。流心范围大意味着烤制时间短，但冷藏超过 12 小时后流心会逐渐被吸收；焦糖表皮越黑，苦味越明显，与内馅甜度的平衡关系需要按个人口味调整。
+        </p>
+
+        <h3>马卡龙成功率的三个关键变量</h3>
+        <p>
+          马卡龙的配方差异其实不大，真正拉开成品差距的是三个变量：蛋白霜状态、杏仁粉细度、晾皮时间。意式蛋白霜需要糖浆温度准确到 118℃，冲入蛋白后打发至硬性发泡但仍有光泽；杏仁粉与糖粉混合后过筛两遍，粗颗粒会导致壳面粗糙；晾皮时间取决于环境湿度，南方潮湿天气下可能需要 40—60 分钟，直到表面形成不粘手的薄膜。
+        </p>
+        <ul>
+          <li><strong>裙边高度</strong>与入炉前晾皮程度直接相关，晾皮不足裙边外翻，过度则裙边矮小。</li>
+          <li><strong>壳内组织</strong>看切面气孔均匀度，意式蛋白霜版本通常比瑞士版本更细腻。</li>
+          <li><strong>夹心时机</strong>建议壳完全冷却后再挤馅，否则水汽会让壳变软。</li>
+        </ul>
+
+        <h3>提拉米苏的原料替代与风味取舍</h3>
+        <p>
+          经典提拉米苏的核心原料是马斯卡彭奶酪、蛋黄、咖啡酒和手指饼干。无酒精版本用冷萃咖啡液替代咖啡酒，风味更干净但缺少酒香层次；生酮版本用赤藓糖醇和杏仁粉手指饼干，口感偏干，需要增加奶酪糊的湿润度。判断一款提拉米苏是否合口味，可以先看奶酪糊的稠度——过稀说明蛋黄糊温度不够或马斯卡彭含水量偏高，过稠则可能是冷藏时间过长。
+        </p>
+
+        <h3>低糖配方对甜点结构的影响</h3>
+        <p>
+          用代糖替换砂糖时，焦糖布丁的焦糖层最难处理，因为赤藓糖醇无法像蔗糖一样在 170℃ 产生同样的焦化反应，色泽偏浅且缺少苦韵。马卡龙对糖的比例更敏感，糖量减少会影响蛋白霜稳定性，通常建议只替换夹心部分的糖，壳体保持原配方。轻乳酪蛋糕对糖的依赖度较低，替换 30% 左右的砂糖对成品影响较小，但需要适当增加玉米淀粉来维持支撑力。
+        </p>
+      </section>
+
+      <!-- 板块6：体验指南 / 消费路径 -->
+      <section class="section-block" id="guide">
+        <div class="section-header">
+          <h2>甜点体验指南</h2>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <strong>先确定口感偏好：绵密、轻盈还是酥脆。</strong>焦糖布丁和巴斯克属于绵密厚重型，轻乳酪蛋糕和抹茶大福偏向轻盈，马卡龙外壳酥脆、内里湿润。从自己偏好的口感切入，比按品类盲目尝试更高效。
+          </div>
+          <div class="guide-step">
+            <strong>看配方中的原料比例，而非步骤数量。</strong>马卡龙配方里杏仁粉与糖粉的比例、巴斯克配方里奶油奶酪与淡奶油的比例，比操作步骤更能决定成品走向。比例接近的配方，成品差异通常可控。
+          </div>
+          <div class="guide-step">
+            <strong>比较同类配方时，优先看温度与时间参数。</strong>同样是巴斯克蛋糕，230℃ 烤 22 分钟和 200℃ 烤 35 分钟得到的切面完全不同。温度与时间组合是判断配方风格的直接线索。
+          </div>
+          <div class="guide-step">
+            <strong>第一次尝试某类甜点，选原料少、步骤短的版本。</strong>焦糖布丁只需鸡蛋、牛奶、糖和淡奶油，失败空间小；马卡龙涉及蛋白霜、晾皮、夹心三步，更适合有烘焙基础后再深入。
+          </div>
+          <div class="guide-step">
+            <strong>探店时关注出品温度与保存方式。</strong>巴斯克蛋糕冷藏后风味更集中，提拉米苏需要冷藏定型，马卡龙对湿度敏感。观察店铺的保存条件，比看外观更能判断出品水平。
+          </div>
+        </div>
+      </section>
+
+      <!-- 板块7：FAQ -->
+      <section class="section-block" id="faq">
+        <div class="section-header">
+          <h2>常见问答</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>巴斯克蛋糕和纽约芝士蛋糕有什么区别？</summary>
+            <div class="faq-answer">
+              巴斯克蛋糕用高温快烤形成焦黑表皮，内部保持半熟流心，口感偏软；纽约芝士蛋糕通常水浴低温慢烤，质地紧实绵密，表面不焦。两者对奶油奶酪比例和烤制温度的要求不同，巴斯克更依赖高温与短时间。
+            </div>
+          </details>
+          <details>
+            <summary>马卡龙晾皮一般需要多长时间？</summary>
+            <div class="faq-answer">
+              晾皮时间取决于环境湿度，干燥天气约 20—30 分钟，潮湿天气可能需要 45—60 分钟。判断标准是表面形成不粘手的薄膜，轻触不粘手指即可入炉，不要单纯依赖固定时间。
+            </div>
+          </details>
+          <details>
+            <summary>焦糖布丁为什么会出现气孔？</summary>
+            <div class="faq-answer">
+              气孔通常来自三个原因：蛋液搅拌时混入过多空气、水浴温度过高导致蛋液沸腾、烤制时间过长。解决方法是蛋液过筛两遍、水浴水温控制在 80℃ 左右、按中心温度判断熟度而非固定时间。
+            </div>
+          </details>
+          <details>
+            <summary>第一次做甜点从哪一款开始比较好？</summary>
+            <div class="faq-answer">
+              从焦糖布丁或轻乳酪蛋糕开始比较合适。焦糖布丁原料少、步骤直接，主要控制水浴温度；轻乳酪蛋糕涉及蛋白霜和翻拌手法，能帮助建立基础操作习惯。马卡龙对温湿度敏感，建议有经验后再尝试。
+            </div>
+          </details>
+          <details>
+            <summary>提拉米苏可以用其他奶酪替代马斯卡彭吗？</summary>
+            <div class="faq-answer">
+              可以用奶油奶酪加淡奶油调整稠度来替代，但风味差异明显。马斯卡彭的乳脂感和微酸度是提拉米苏的核心，替代版本会更厚重、缺少清爽感。如果对奶味敏感，可以减少马斯卡彭用量并增加咖啡液浓度。
+            </div>
+          </details>
+          <details>
+            <summary>低糖配方会影响甜点成型吗？</summary>
+            <div class="faq-answer">
+              会影响，程度因甜点类型而异。马卡龙壳体对糖的比例最敏感，减少糖量会削弱蛋白霜稳定性，建议只替换夹心部分。焦糖布丁和轻乳酪蛋糕对糖的依赖较低，替换 30%—40% 通常可行，但需要调整淀粉或吉利丁用量来维持结构。
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 板块8：用户评论 -->
+      <section class="section-block" id="comments">
+        <div class="section-header">
+          <h2>用户评论</h2>
+        </div>
+        <div class="comment-grid">
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">布</span><span class="comment-name">布丁控小林</span></div>
+            <p class="comment-text">焦糖布丁按 150℃ 水浴烤了 45 分钟，切面几乎没有气孔，比之前 170℃ 的效果好很多。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">芝</span><span class="comment-name">芝士就是力量</span></div>
+            <p class="comment-text">巴斯克中心 62℃ 出炉确实流心明显，但冷藏一晚后流心少了一半，下次试试 66℃。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">马</span><span class="comment-name">马卡龙翻车王</span></div>
+            <p class="comment-text">南方湿度 80% 晾皮 50 分钟才不粘手，裙边终于出来了，之前 20 分钟入炉全塌了。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">提</span><span class="comment-name">提拉米苏爱好者</span></div>
+            <p class="comment-text">无酒精版用冷萃咖啡替代咖啡酒，家里小朋友也能吃，风味比想象中干净。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">轻</span><span class="comment-name">轻乳酪新手</span></div>
+            <p class="comment-text">蛋白霜打到湿性发泡就停，烤出来确实不裂，但回缩了大概 1cm，还在找原因。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">抹</span><span class="comment-name">抹茶大福日记</span></div>
+            <p class="comment-text">糯米粉加粘米粉 3:1 的皮确实没那么粘牙，但冷藏后皮会变硬，建议回温 10 分钟再吃。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">焦</span><span class="comment-name">焦糖深度用户</span></div>
+            <p class="comment-text">焦糖酱熬到 175℃ 左右苦甜平衡最好，180℃ 有点发苦，170℃ 又偏甜。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">达</span><span class="comment-name">达克瓦兹练习生</span></div>
+            <p class="comment-text">杏仁粉过筛两遍后壳面明显平整，之前偷懒只过一遍，表面全是小颗粒。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">低</span><span class="comment-name">低糖实验员</span></div>
+            <p class="comment-text">赤藓糖醇做的焦糖层颜色很浅，味道也偏淡，可能还是得保留一部分蔗糖。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">探</span><span class="comment-name">探店小队长</span></div>
+            <p class="comment-text">在城南一家店吃到冷藏 4 小时的巴斯克，流心刚好，比刚出炉的更适合我的口味。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">蛋</span><span class="comment-name">蛋奶比例控</span></div>
+            <p class="comment-text">布丁全蛋和蛋黄 1:1 确实比全蛋黄版本清爽，全蛋黄太厚重了，吃多容易腻。</p>
+          </div>
+          <div class="comment-item">
+            <div class="comment-user"><span class="comment-avatar">咖</span><span class="comment-name">咖啡液浓度党</span></div>
+            <p class="comment-text">手指饼干浸泡 1.5 秒刚好，2 秒以上底部会积水，冷藏后出水很明显。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 板块9：相关资讯 -->
+      <section class="section-block" id="news">
+        <div class="section-header">
+          <h2>相关资讯</h2>
+        </div>
+        <div class="news-list">
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-jiotang/600/400" alt="焦糖布丁低糖配方展示" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>低糖焦糖布丁配方在社区讨论升温</h3>
+              <div class="news-date">2026-11-07</div>
+              <p class="news-summary">赤藓糖醇与蔗糖混合比例成为讨论焦点，多数反馈建议保留至少 50% 蔗糖以维持焦化层。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-basike/600/400" alt="巴斯克蛋糕流心切面" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>巴斯克蛋糕流心温度对照测试更新</h3>
+              <div class="news-date">2026-11-06</div>
+              <p class="news-summary">62℃ 与 66℃ 中心温度出炉的切面对比发布，冷藏 6 小时后的质地差异被重点记录。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-makalong/600/400" alt="马卡龙晾皮状态" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>潮湿天气马卡龙晾皮时间延长方案</h3>
+              <div class="news-date">2026-11-05</div>
+              <p class="news-summary">南方烘焙者分享晾皮 45—60 分钟的操作记录，配合除湿机使用效果更稳定。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-tilamisu/600/400" alt="提拉米苏无酒精版本" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>提拉米苏无酒精版本配方更新</h3>
+              <div class="news-date">2026-11-04</div>
+              <p class="news-summary">冷萃咖啡替代咖啡酒的比例被细化，建议咖啡液浓度提高 20% 来弥补酒香缺失。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-qingruzhi/600/400" alt="轻乳酪蛋糕水浴烘烤" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>轻乳酪蛋糕水浴深度对比结果</h3>
+              <div class="news-date">2026-11-03</div>
+              <p class="news-summary">水浴 2cm 与 3cm 的膨胀高度差异约 0.8cm，3cm 版本组织更湿润但底部偏软。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <div class="news-img"><img src="https://picsum.photos/seed/news-mochadafu/600/400" alt="抹茶大福糯米皮" width="600" height="400" loading="lazy"></div>
+            <div class="news-content">
+              <h3>抹茶大福糯米皮配方调整记录</h3>
+              <div class="news-date">2026-11-02</div>
+              <p class="news-summary">糯米粉与粘米粉 3:1 的配比降低粘牙感，但冷藏后硬化速度加快，回温建议 10 分钟。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 板块10：相关推荐 -->
+      <section class="section-block" id="recommend">
+        <div class="section-header">
+          <h2>相关推荐</h2>
+        </div>
+        <div class="tag-cloud">
+          <a href="/#featured">焦糖布丁水浴温度</a>
+          <a href="/#featured">巴斯克流心判断</a>
+          <a href="/#featured">意式蛋白霜打法</a>
+          <a href="/#featured">马斯卡彭替代方案</a>
+          <a href="/#featured">轻乳酪蛋白霜状态</a>
+          <a href="/#featured">抹茶大福皮配方</a>
+          <a href="/#deep-dive">代糖烘焙比例调整</a>
+          <a href="/#guide">甜点探店保存条件</a>
+        </div>
+      </section>
+
+      <!-- 板块11：热门榜单 -->
+      <section class="section-block" id="rank">
+        <div class="section-header">
+          <h2>本周甜点热度榜</h2>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item">
+            <span class="rank-num">1</span>
+            <span class="rank-title">巴斯克焦烧芝士蛋糕（流心版）</span>
+            <span class="rank-score">9.4</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">2</span>
+            <span class="rank-title">经典提拉米苏（无酒精版）</span>
+            <span class="rank-score">9.2</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">3</span>
+            <span class="rank-title">焦糖布丁（低糖配方）</span>
+            <span class="rank-score">9.1</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">4</span>
+            <span class="rank-title">日式轻乳酪蛋糕（水浴版）</span>
+            <span class="rank-score">8.9</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">5</span>
+            <span class="rank-title">意式马卡龙（覆盆子夹心）</span>
+            <span class="rank-score">8.8</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">6</span>
+            <span class="rank-title">抹茶大福（红豆奶油馅）</span>
+            <span class="rank-score">8.7</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">7</span>
+            <span class="rank-title">达克瓦兹（杏仁粉过筛版）</span>
+            <span class="rank-score">8.5</span>
+          </div>
+          <div class="rank-item">
+            <span class="rank-num">8</span>
+            <span class="rank-title">焦糖酱（170℃ 熬制）</span>
+            <span class="rank-score">8.3</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 右辅助栏 -->
+    <aside class="aside-column">
+      <div class="aside-box">
+        <h2>热门条目</h2>
+        <ul class="aside-hot-list">
+          <li><a href="/#featured">巴斯克焦烧芝士蛋糕 <span class="hot-score">9.4</span></a></li>
+          <li><a href="/#featured">经典提拉米苏 <span class="hot-score">9.2</span></a></li>
+          <li><a href="/#featured">焦糖布丁 <span class="hot-score">9.1</span></a></li>
+          <li><a href="/#featured">日式轻乳酪蛋糕 <span class="hot-score">8.9</span></a></li>
+          <li><a href="/#featured">意式马卡龙 <span class="hot-score">8.8</span></a></li>
+          <li><a href="/#featured">抹茶大福 <span class="hot-score">8.7</span></a></li>
+        </ul>
+      </div>
+      <div class="aside-box">
+        <h2>更新流</h2>
+        <ul class="aside-update-feed">
+          <li><time>11-08 09:30</time>焦糖布丁低糖配方更新</li>
+          <li><time>11-07 20:15</time>巴斯克流心温度对照</li>
+          <li><time>11-07 14:00</time>意式马卡龙湿度记录</li>
+          <li><time>11-06 18:40</time>提拉米苏无酒精版</li>
+          <li><time>11-06 10:00</time>轻乳酪水浴深度对比</li>
+          <li><time>11-05 21:10</time>抹茶大福皮配方调整</li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 搜索无结果提示（全局） -->
+  <div id="noResults" class="no-results" style="max-width:var(--container);margin:0 auto;padding:0 16px 40px;">没有找到相关甜点内容，试试搜索“焦糖布丁”“巴斯克”或“马卡龙”。</div>
+
+  <!-- 页尾 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">糖心</span>
+        <p>甜品烘焙与甜点文化聚合页，聚焦焦糖布丁、巴斯克蛋糕、马卡龙、提拉米苏等具体条目的配方解析与原料对比。</p>
+      </div>
+      <div class="footer-col">
+        <h3>甜点类型</h3>
+        <ul>
+          <li><a href="/#featured">焦糖布丁</a></li>
+          <li><a href="/#featured">巴斯克蛋糕</a></li>
+          <li><a href="/#featured">马卡龙</a></li>
+          <li><a href="/#featured">提拉米苏</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>内容栏目</h3>
+        <ul>
+          <li><a href="/#deep-dive">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+          <li><a href="/#rank">热门榜单</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>社区</h3>
+        <ul>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#recommend">相关推荐</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 糖心 · 甜品烘焙内容聚合</span>
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // 搜索功能：在页面内查找匹配文本并滚动/高亮
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const noResults = document.getElementById('noResults');
+      const searchableSections = document.querySelectorAll('.section-block, .card, .update-item, .comment-item, .news-item, .rank-item, .category-item');
+
+      function clearHighlights() {
+        document.querySelectorAll('.search-highlight').forEach(el => {
+          const parent = el.parentNode;
+          parent.replaceChild(document.createTextNode(el.textContent), el);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(node, term) {
+        if (node.nodeType === 3) {
+          const text = node.textContent;
+          const lowerText = text.toLowerCase();
+          const lowerTerm = term.toLowerCase();
+          const idx = lowerText.indexOf(lowerTerm);
+          if (idx !== -1) {
+            const span = document.createElement('span');
+            span.className = 'search-highlight';
+            span.style.background = '#fae6d9';
+            span.style.borderRadius = '2px';
+            span.textContent = text.slice(idx, idx + term.length);
+            const after = text.slice(idx + term.length);
+            const before = text.slice(0, idx);
+            const parent = node.parentNode;
+            parent.insertBefore(document.createTextNode(before), node);
+            parent.insertBefore(span, node);
+            parent.insertBefore(document.createTextNode(after), node);
+            parent.removeChild(node);
+            return true;
+          }
+        } else if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE') {
+          let found = false;
+          for (let child of Array.from(node.childNodes)) {
+            found = highlightText(child, term) || found;
+          }
+          return found;
+        }
+        return false;
+      }
+
+      function performSearch() {
+        const term = searchInput.value.trim();
+        if (!term) {
+          clearHighlights();
+          noResults.classList.remove('show');
+          return;
+        }
+        clearHighlights();
+        let foundAny = false;
+        searchableSections.forEach(section => {
+          if (section.textContent.toLowerCase().includes(term.toLowerCase())) {
+            highlightText(section, term);
+            foundAny = true;
+          }
+        });
+        if (!foundAny) {
+          noResults.classList.add('show');
+        } else {
+          noResults.classList.remove('show');
+          const firstHighlight = document.querySelector('.search-highlight');
+          if (firstHighlight) {
+            firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      }
+
+      searchBtn.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        }
+      });
+    })();
+  </script>
+
+</body>
+          </html>
