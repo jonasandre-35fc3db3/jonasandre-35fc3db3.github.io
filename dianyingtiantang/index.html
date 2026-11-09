@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电影天堂 - 在线免费观看指南</title>
+  <meta name="description" content="电影天堂提供在线免费观看的精选指南，涵盖科幻、悬疑、剧情等类型的具体条目推荐、更新动态与分类筛选，适合影视爱好者快速发现可看内容。">
+  <meta name="keywords" content="免费影视,科幻电影,悬疑剧集,观影指南,影视更新">
+  <style>
+    /* ---------- 全局变量与重置 ---------- */
+    :root {
+      --bg-body: #0f1115;
+      --bg-panel: #181b22;
+      --bg-panel-light: #1f232c;
+      --bg-card: #1d212a;
+      --border-color: #2a2f3a;
+      --text-primary: #f0f2f5;
+      --text-secondary: #b0b8c4;
+      --text-muted: #7e8796;
+      --accent: #e6a23c;
+      --accent-hover: #f0b95c;
+      --accent-dim: #b87d2a;
+      --link-color: #e6a23c;
+      --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.4);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --max-width: 1280px;
+      --header-height: 64px;
+      --announce-height: 40px;
+      --sticky-offset: calc(var(--announce-height) + var(--header-height) + 12px);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-offset);
+    }
+
+    body {
+      font-family: var(--font-base);
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ---------- 吸顶公告条 ---------- */
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #1e2128;
+      border-bottom: 1px solid var(--border-color);
+      height: var(--announce-height);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .announce-bar .container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .announce-label {
+      background: var(--accent);
+      color: #0f1115;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .announce-items {
+      display: flex;
+      gap: 24px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .announce-items span {
+      flex-shrink: 0;
+    }
+    .announce-items strong {
+      color: var(--text-primary);
+    }
+
+    /* ---------- 吸顶页头 ---------- */
+    .site-header {
+      position: sticky;
+      top: var(--announce-height);
+      z-index: 99;
+      background-color: rgba(15, 17, 21, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+    }
+    .site-header .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), #c47a2a);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f1115;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+    .brand-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-primary);
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .main-nav a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .main-nav a:hover,
+    .main-nav a:focus-visible {
+      background: var(--bg-panel-light);
+      color: var(--accent);
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .search-toggle {
+      background: var(--bg-panel-light);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s;
+    }
+    .search-toggle:hover {
+      border-color: var(--accent);
+    }
+    .search-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* 搜索框（隐藏） */
+    .search-bar {
+      display: none;
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      z-index: 98;
+    }
+    .search-bar.active {
+      display: block;
+    }
+    .search-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+    }
+    .search-inner input {
+      flex: 1;
+      padding: 8px 16px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-body);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .search-inner input:focus {
+      border-color: var(--accent);
+    }
+    .search-inner button {
+      background: var(--accent);
+      border: none;
+      border-radius: 24px;
+      padding: 8px 22px;
+      font-weight: 600;
+      color: #0f1115;
+      cursor: pointer;
+    }
+    .search-feedback {
+      max-width: var(--max-width);
+      margin: 8px auto 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- 布局：三栏门户 ---------- */
+    .page-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #1a1e26, #12151c);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0f1115;
+      font-weight: 700;
+      padding: 10px 26px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: #0f1115;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+    }
+    .hero-visual svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 170px 1fr 250px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ---------- 左侧频道栏 ---------- */
+    .channel-sidebar {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 10px);
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      padding: 16px 10px;
+    }
+    .channel-sidebar h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      padding: 0 10px 10px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 10px;
+    }
+    .channel-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .channel-nav a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s, color 0.2s;
+    }
+    .channel-nav a:hover,
+    .channel-nav a:focus-visible {
+      background: var(--bg-panel-light);
+      color: var(--accent);
+      outline: none;
+    }
+
+    /* ---------- 中间主内容 ---------- */
+    .main-content {
+      min-width: 0;
+    }
+
+    .section {
+      margin-bottom: 32px;
+      scroll-margin-top: var(--sticky-offset);
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+    .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.3px;
+    }
+    .section-header .more-link {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .overview-text {
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .overview-text p {
+      margin-bottom: 12px;
+    }
+    .overview-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-dim);
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background-color: #2a2f3a;
+    }
+    .card-body {
+      padding: 12px 14px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .tag {
+      font-size: 0.7rem;
+      background: var(--bg-panel-light);
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+    }
+    .card-meta .score {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* 紧凑列表 */
+    .compact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .compact-item {
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .compact-item .info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .compact-item .name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .compact-item .brief {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .compact-item .time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* 分类入口网格 */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .category-card {
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      padding: 16px 10px;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .category-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-panel-light);
+    }
+    .category-card .cat-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .category-card .cat-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* 深度解析 */
+    .deep-dive {
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-size: 0.95rem;
+    }
+    .deep-dive h3 {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      margin: 20px 0 10px;
+    }
+    .deep-dive h3:first-of-type {
+      margin-top: 0;
+    }
+    .deep-dive p {
+      margin-bottom: 12px;
+    }
+    .deep-dive ul {
+      list-style: disc;
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+    .deep-dive li {
+      margin-bottom: 6px;
+    }
+
+    /* 指南步骤 */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step-item {
+      display: flex;
+      gap: 14px;
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      color: #0f1115;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .step-content h4 {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .step-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    details {
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      padding: 0 16px;
+    }
+    summary {
+      padding: 14px 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+    summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: '−';
+    }
+    details .faq-answer {
+      padding: 0 0 16px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* 评论 */
+    .comment-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .comment-item {
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+    }
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .comment-user {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+    .comment-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .comment-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 资讯列表 */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .news-item {
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+    }
+    .news-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .news-date {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .news-summary {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* 相关推荐标签 */
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tag-cloud a {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .tag-cloud a:hover {
+      background: var(--bg-panel-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 榜单 */
+    .rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-panel);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      border: 1px solid var(--border-color);
+    }
+    .rank-num {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      width: 24px;
+      text-align: center;
+    }
+    .rank-item:nth-child(1) .rank-num { color: #ffd700; }
+    .rank-item:nth-child(2) .rank-num { color: #c0c0c0; }
+    .rank-item:nth-child(3) .rank-num { color: #cd7f32; }
+    .rank-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      flex: 1;
+    }
+    .rank-score {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ---------- 右侧辅助栏 ---------- */
+    .sidebar-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: calc(var(--sticky-offset) + 10px);
+    }
+    .sidebar-panel {
+      background: var(--bg-panel);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      padding: 16px;
+    }
+    .sidebar-panel h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+    .ranking-item .idx {
+      width: 20px;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .ranking-item .idx.top {
+      color: var(--accent);
+    }
+    .ranking-item .rname {
+      flex: 1;
+      color: var(--text-secondary);
+    }
+    .ranking-item .rheat {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .update-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .update-item {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+    .update-item .time-dot {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    /* ---------- 页脚 ---------- */
+    .site-footer {
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border-color);
+      padding: 40px 20px 24px;
+      margin-top: 20px;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .footer-col h4 {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-col a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 28px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      .channel-sidebar {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 12px;
+      }
+      .channel-sidebar h2 {
+        display: none;
+      }
+      .channel-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .sidebar-right {
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 740px) {
+      .hero {
+        flex-direction: column;
+        padding: 24px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero-visual {
+        width: 120px;
+        height: 120px;
+        margin-top: 16px;
+      }
+      .main-nav {
+        display: none;
+      }
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .comment-list {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-right {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .compact-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    @media (max-width: 420px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* 焦点可见 */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce-bar">
+    <div class="container">
+      <span class="announce-label">更新</span>
+      <div class="announce-items">
+        <span><strong>11月8日</strong> 新增 23 部高清片源</span>
+        <span><strong>本周</strong> 科幻专题「星际穿越」4K 修复版上线</span>
+        <span><strong>今日</strong> 悬疑剧《迷雾追踪》第 6 集更新</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">影</div>
+        <span class="brand-name">电影天堂</span>
+      </div>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#featured">精选推荐</a>
+        <a href="#latest">最新更新</a>
+        <a href="#categories">分类筛选</a>
+        <a href="#deep-dive">深度解析</a>
+        <a href="#faq">常见问题</a>
+        <a href="#comments">用户评论</a>
+      </nav>
+      <div class="header-actions">
+        <button class="search-toggle" id="searchToggle" aria-label="打开搜索">
+          <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          搜索
+        </button>
+      </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+      <div class="search-inner">
+        <input type="text" id="searchInput" placeholder="输入片名、类型或标签，如“科幻”“迷雾追踪”" aria-label="搜索内容">
+        <button id="searchBtn">查找</button>
+      </div>
+      <div class="search-feedback" id="searchFeedback"></div>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- 首屏 -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>电影天堂</h1>
+        <p class="hero-desc">汇集科幻、悬疑、剧情、动作等类型的在线免费观看入口与观影指南。这里整理近期值得关注的片单、更新动态和分类筛选，帮助你在海量内容中快速找到想看的电影与剧集。</p>
+        <div class="hero-actions">
+          <a href="#featured" class="btn-primary">查看精选片单</a>
+          <a href="#latest" class="btn-outline">最新更新</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="50" width="140" height="100" rx="12" stroke="#e6a23c" stroke-width="3" fill="rgba(230,162,60,0.08)"/>
+          <rect x="42" y="62" width="116" height="76" rx="6" stroke="#e6a23c" stroke-width="1.5" opacity="0.5"/>
+          <polygon points="88,80 88,120 124,100" fill="#e6a23c" opacity="0.9"/>
+          <circle cx="150" cy="60" r="6" fill="#e6a23c" opacity="0.4"/>
+          <circle cx="50" cy="150" r="4" fill="#e6a23c" opacity="0.3"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 三栏布局 -->
+    <div class="main-layout">
+
+      <!-- 左侧频道 -->
+      <aside class="channel-sidebar" id="categories" aria-label="频道索引">
+        <h2>频道</h2>
+        <nav class="channel-nav">
+          <a href="#featured">科幻</a>
+          <a href="#featured">悬疑</a>
+          <a href="#featured">剧情</a>
+          <a href="#featured">动作</a>
+          <a href="#featured">喜剧</a>
+          <a href="#featured">恐怖</a>
+          <a href="#featured">爱情</a>
+          <a href="#featured">动画</a>
+          <a href="#latest">剧集</a>
+          <a href="#featured">纪录片</a>
+          <a href="#latest">综艺</a>
+          <a href="#featured">经典老片</a>
+        </nav>
+      </aside>
+
+      <!-- 中间主内容 -->
+      <main class="main-content">
+
+        <!-- 1. 主题领域概览 -->
+        <section class="section" id="overview">
+          <div class="section-header">
+            <h2>在线免费观看内容概览</h2>
+          </div>
+          <div class="overview-text">
+            <p>电影天堂聚合了当前网络可观看的影视内容类型，涵盖科幻、悬疑、剧情、动作、喜剧、恐怖、爱情、动画等多个方向。科幻类以太空歌剧、时间循环与硬核设定为主，近期值得关注的有《星际穿越》4K修复版、《沙丘2》加长剪辑版；悬疑类则集中在犯罪心理、密室逃脱与反转叙事，如《迷雾追踪》《消失的证人》等剧集持续更新。</p>
+            <p>剧集方面，国产悬疑短剧与欧美科幻季播剧是近期的观看热点。电影部分，经典老片修复重映与独立制片新作并行，适合不同偏好的观众。纪录片领域，《地球脉动·极境篇》与《风味人间·海鲜季》提供了纪实向的选择。动画分类中，剧场版动画与成人向番剧均有覆盖，可根据评分和类型标签快速筛选。</p>
+            <p>对于第一次接触在线免费观看的观众，建议先从评分较高、更新完整的条目入手，再根据类型标签拓展到同导演或同题材作品。各分类的更新频率不一，剧集通常按周更新，电影则集中在周末上线。</p>
+          </div>
+        </section>
+
+        <!-- 2. 精选内容推荐 -->
+        <section class="section" id="featured">
+          <div class="section-header">
+            <h2>精选内容推荐</h2>
+            <a href="#latest" class="more-link">更多更新 →</a>
+          </div>
+          <div class="card-grid">
+            <article class="card">
+              <img src="https://picsum.photos/seed/xingji-chuanyue01/400/300" alt="星际穿越 4K 修复版海报" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">星际穿越 4K 修复版</h3>
+                <div class="card-tags"><span class="tag">科幻</span><span class="tag">太空</span><span class="tag">亲情</span></div>
+                <p class="card-desc">诺兰经典太空科幻，黑洞视效与时间膨胀设定值得大屏重温。修复版画质提升明显，适合科幻迷收藏。</p>
+                <div class="card-meta"><span class="score">9.4</span><span>2.3万热度</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/miwu-zhuizong02/400/300" alt="迷雾追踪剧集封面" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">迷雾追踪</h3>
+                <div class="card-tags"><span class="tag">悬疑</span><span class="tag">犯罪</span><span class="tag">短剧</span></div>
+                <p class="card-desc">国产悬疑短剧，刑警与心理侧写师联手侦破连环失踪案。第6集更新，节奏紧凑，反转密集。</p>
+                <div class="card-meta"><span class="score">8.7</span><span>今日更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/shaqiu2-03/400/300" alt="沙丘2 加长版海报" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">沙丘2 加长剪辑版</h3>
+                <div class="card-tags"><span class="tag">科幻</span><span class="tag">史诗</span><span class="tag">冒险</span></div>
+                <p class="card-desc">维伦纽瓦续作，加长版增加30分钟沙漠场景与家族背景。厄拉科斯星球的视觉呈现是最大看点。</p>
+                <div class="card-meta"><span class="score">8.9</span><span>1.8万热度</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/xiaoshi-zhengren04/400/300" alt="消失的证人剧照" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">消失的证人</h3>
+                <div class="card-tags"><span class="tag">悬疑</span><span class="tag">法庭</span><span class="tag">反转</span></div>
+                <p class="card-desc">一起密室凶杀案的关键证人在庭审前失踪，律师与记者展开追查。前8集已上线，线索交错。</p>
+                <div class="card-meta"><span class="score">8.5</span><span>昨天更新</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/diqiu-maidong05/400/300" alt="地球脉动·极境篇纪录片封面" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">地球脉动·极境篇</h3>
+                <div class="card-tags"><span class="tag">纪录片</span><span class="tag">自然</span><span class="tag">BBC</span></div>
+                <p class="card-desc">BBC自然纪录片新作，深入极地、深海与高山环境，记录罕见物种的生存状态。画面质感极佳。</p>
+                <div class="card-meta"><span class="score">9.6</span><span>本周上线</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://picsum.photos/seed/fengwei-renjian06/400/300" alt="风味人间·海鲜季海报" class="card-img" width="400" height="300" loading="lazy">
+              <div class="card-body">
+                <h3 class="card-title">风味人间·海鲜季</h3>
+                <div class="card-tags"><span class="tag">纪录片</span><span class="tag">美食</span><span class="tag">人文</span></div>
+                <p class="card-desc">聚焦全球海鲜食材与渔村生活，从捕捞到烹饪呈现人与海洋的关系。适合下饭观看。</p>
+                <div class="card-meta"><span class="score">9.2</span><span>3天前更新</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 3. 最新更新/热播动态 -->
+        <section class="section" id="latest">
+          <div class="section-header">
+            <h2>最新更新与热播动态</h2>
+          </div>
+          <div class="compact-list">
+            <div class="compact-item">
+              <div class="info"><span class="name">迷雾追踪</span><span class="brief">第6集上线，心理侧写师发现新线索</span></div>
+              <span class="time">今天 10:20</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">星际穿越 4K 修复版</span><span class="brief">新增IMAX画幅段落，修复版已上线</span></div>
+              <span class="time">今天 09:15</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">消失的证人</span><span class="brief">第8集更新，关键证人现身法庭</span></div>
+              <span class="time">昨天 21:10</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">暗夜行者</span><span class="brief">第12集季终，卧底身份揭晓</span></div>
+              <span class="time">昨天 20:00</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">沙丘2 加长剪辑版</span><span class="brief">加长版本周上线，新增沙漠战争场面</span></div>
+              <span class="time">11月7日</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">地球脉动·极境篇</span><span class="brief">第3集“深海之光”上线，记录发光生物</span></div>
+              <span class="time">11月6日</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">风味人间·海鲜季</span><span class="brief">第5集“潮汐之间”更新，聚焦赶海人</span></div>
+              <span class="time">11月5日</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">时光代理人 剧场版</span><span class="brief">动画剧场版上线，新增时间线支线</span></div>
+              <span class="time">11月4日</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">沉默的审判</span><span class="brief">第10集更新，庭审逆转引发讨论</span></div>
+              <span class="time">11月3日</span>
+            </div>
+            <div class="compact-item">
+              <div class="info"><span class="name">极地追击</span><span class="brief">动作片上线，极地追车戏获好评</span></div>
+              <span class="time">11月2日</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. 分类入口 -->
+        <section class="section" id="category-entries">
+          <div class="section-header">
+            <h2>分类筛选入口</h2>
+          </div>
+          <div class="category-grid">
+            <a href="#featured" class="category-card"><div class="cat-name">科幻</div><div class="cat-count">128部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">悬疑</div><div class="cat-count">96部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">剧情</div><div class="cat-count">204部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">动作</div><div class="cat-count">156部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">喜剧</div><div class="cat-count">88部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">恐怖</div><div class="cat-count">64部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">爱情</div><div class="cat-count">112部</div></a>
+            <a href="#featured" class="category-card"><div class="cat-name">动画</div><div class="cat-count">73部</div></a>
+          </div>
+        </section>
+
+        <!-- 5. 深度解析正文 -->
+        <section class="section" id="deep-dive">
+          <div class="section-header">
+            <h2>深度解析：类型差异与观看策略</h2>
+          </div>
+          <div class="deep-dive">
+            <h3>科幻 vs 悬疑：两种不同的观看期待</h3>
+            <p>科幻类型通常以世界观设定为驱动，观众期待的是未来科技、太空探索或时间悖论带来的认知冲击。像《星际穿越》的核心在于相对论与亲情线的交织，《沙丘2》则侧重生态政治与史诗叙事。这类作品往往需要观众投入较长的注意力，理解设定背景后才能获得完整体验。悬疑类型则相反，它依赖信息差与反转节奏，如《迷雾追踪》每集结尾埋设钩子，适合连续观看。判断一部悬疑剧是否值得追，可以先看前两集是否建立清晰的案件逻辑，以及角色动机是否合理。</p>
+            <h3>剧集与电影的选择标准</h3>
+            <p>如果你只有零散时间，优先选择单集时长在45分钟以内的短剧，或者直接看电影。剧集的价值在于人物弧光的长期积累，但需要持续投入；电影则提供完整的叙事闭环，适合周末一次性消费。以近期内容为例：《消失的证人》共12集，适合每天一集跟看；《地球脉动·极境篇》每集50分钟，适合对自然题材感兴趣的观众。纪录片不需要追更，可以按主题挑选。</p>
+            <h3>如何判断一部新片是否值得看</h3>
+            <ul>
+              <li><strong>看导演和主演的过往作品：</strong>如果喜欢《星际穿越》的硬科幻风格，可以关注诺兰的其他作品；喜欢《迷雾追踪》的犯罪题材，可延伸至同类型短剧。</li>
+              <li><strong>看评分与评论分布：</strong>评分高于8.0通常具备基本可看性，但也要注意评论数量是否足够。小众高分作品可能更符合个人口味。</li>
+              <li><strong>关注更新状态：</strong>未完结剧集存在烂尾风险，如果不想追更，等完结后一次性观看更稳妥。</li>
+            </ul>
+            <h3>免费观看的常见筛选维度</h3>
+            <p>在线免费内容通常按类型、地区、年份和评分排序。优先选择有高清修复或官方字幕的版本，观看体验更好。对于老片，修复版往往比原版画质提升明显，如《星际穿越》4K修复版的暗部细节更丰富。另外，注意区分“加长版”与“公映版”，加长版可能包含更多背景信息，但也可能拉长节奏，根据个人偏好选择。</p>
+          </div>
+        </section>
+
+        <!-- 6. 体验指南/消费路径 -->
+        <section class="section" id="guide">
+          <div class="section-header">
+            <h2>体验指南：从哪部开始看</h2>
+          </div>
+          <div class="guide-steps">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>先确定想看的类型</h4>
+                <p>科幻迷可以从《星际穿越》4K修复版或《沙丘2》加长版入手；悬疑剧爱好者优先看《迷雾追踪》和《消失的证人》；纪录片观众可选《地球脉动·极境篇》。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>检查更新状态与时长</h4>
+                <p>剧集类确认是否完结，未完结的可以每周跟更。电影单部时长通常在90—180分钟，适合整块时间观看。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>比较不同版本</h4>
+                <p>同一部电影可能有修复版、加长版、导演剪辑版。首次观看建议选公映版或修复版，二刷再考虑加长版。</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h4>参考评分与用户评论</h4>
+                <p>评分8.0以上的条目通常质量稳定，但也要留意评论中关于节奏、结局的讨论，避免踩雷。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. FAQ -->
+        <section class="section" id="faq">
+          <div class="section-header">
+            <h2>常见问题</h2>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>《迷雾追踪》多久更新一集？</summary>
+              <div class="faq-answer">该剧为周更模式，每周四更新两集，目前更新至第6集，预计12集完结。可在最新更新板块查看具体时间。</div>
+            </details>
+            <details>
+              <summary>科幻电影和科幻剧集在观看体验上有什么区别？</summary>
+              <div class="faq-answer">科幻电影通常世界观更集中，两小时内完成叙事；科幻剧集则能展开更复杂的人物关系和多线剧情，但需要持续追更。例如《沙丘2》电影侧重史诗场面，《暗夜行者》剧集侧重身份悬念。</div>
+            </details>
+            <details>
+              <summary>第一次看悬疑剧，从哪部开始比较好？</summary>
+              <div class="faq-answer">如果偏好国产短剧，可以从《迷雾追踪》开始，每集30分钟，节奏快；如果喜欢法庭题材，《消失的证人》更合适。两部都在更新中，建议先看前两集判断是否合口味。</div>
+            </details>
+            <details>
+              <summary>4K修复版和原版电影在画质上差别大吗？</summary>
+              <div class="faq-answer">差别明显，尤其对于老片。修复版通常提升了分辨率、色彩饱和度和暗部细节，如《星际穿越》4K修复版在太空场景的星云层次上更清晰。如果设备支持，优先选修复版。</div>
+            </details>
+            <details>
+              <summary>自然纪录片适合什么人看？</summary>
+              <div class="faq-answer">《地球脉动·极境篇》和《风味人间·海鲜季》都适合对自然、美食和人文感兴趣的观众。前者偏重生态知识，后者偏重饮食文化，可以按个人兴趣选择。</div>
+            </details>
+            <details>
+              <summary>如何判断一部新上线电影是否值得花时间？</summary>
+              <div class="faq-answer">可以先看评分是否在8.0以上，再看评论中关于剧情和表演的具体反馈。如果导演或主演有既往作品参考，也可以作为依据。此外，注意分辨“加长版”是否包含必要内容。</div>
+            </details>
+          </div>
+        </section>
+
+        <!-- 8. 用户评论 -->
+        <section class="section" id="comments">
+          <div class="section-header">
+            <h2>用户评论</h2>
+          </div>
+          <div class="comment-list">
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">光影漫游者</span><span class="comment-date">11月8日</span></div><div class="comment-text">《星际穿越》修复版在太空舱对接那段音效更震撼了，家里电视看也很爽。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">追剧小马达</span><span class="comment-date">11月8日</span></div><div class="comment-text">迷雾追踪第6集结尾那个反转没想到，心理侧写师的身份好像不简单。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">沙漠之鹰</span><span class="comment-date">11月7日</span></div><div class="comment-text">沙丘2加长版多了半小时，沙漠战争场面更完整，但节奏确实变慢了，看个人喜好。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">纪录片老饕</span><span class="comment-date">11月7日</span></div><div class="comment-text">风味人间海鲜季第5集拍赶海人很真实，比单纯拍美食更有意思。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">悬疑控小K</span><span class="comment-date">11月6日</span></div><div class="comment-text">消失的证人更新到第8集了，法庭戏有点拖，但整体还是想追下去。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">极地企鹅</span><span class="comment-date">11月6日</span></div><div class="comment-text">地球脉动极境篇第3集深海发光生物太美了，适合投屏看。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">动作片狂人</span><span class="comment-date">11月5日</span></div><div class="comment-text">极地追击的追车戏不错，但剧情有点老套，爆米花片水平。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">时光旅人</span><span class="comment-date">11月5日</span></div><div class="comment-text">时光代理人剧场版支线剧情挺惊喜的，粉丝向作品。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">暗夜行者迷</span><span class="comment-date">11月4日</span></div><div class="comment-text">暗夜行者季终了，卧底身份揭晓那集张力拉满，希望有第二季。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">冰咖啡不加糖</span><span class="comment-date">11月4日</span></div><div class="comment-text">沉默的审判第10集庭审逆转有点强行，不过演员演技在线。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">片单收集者</span><span class="comment-date">11月3日</span></div><div class="comment-text">分类里科幻片挺多的，希望多上一些经典老片修复版。</div></div>
+            <div class="comment-item"><div class="comment-header"><span class="comment-user">夜猫子观影</span><span class="comment-date">11月2日</span></div><div class="comment-text">最近悬疑剧扎堆，迷雾追踪和消失的证人可以交替看，不串戏。</div></div>
+          </div>
+        </section>
+
+        <!-- 9. 相关资讯 -->
+        <section class="section" id="news">
+          <div class="section-header">
+            <h2>相关资讯</h2>
+          </div>
+          <div class="news-list">
+            <div class="news-item">
+              <div class="news-title">《星际穿越》4K修复版上线 新增IMAX画幅段落</div>
+              <div class="news-date">2026-11-08</div>
+              <div class="news-summary">修复版对黑洞视效和太空舱内景进行了重新调色，并增加了部分IMAX画幅的扩展画面，适合大屏观看。</div>
+            </div>
+            <div class="news-item">
+              <div class="news-title">悬疑短剧《迷雾追踪》播出过半 口碑持续走高</div>
+              <div class="news-date">2026-11-07</div>
+              <div class="news-summary">该剧更新至第6集，豆瓣评分稳定在8.7，观众讨论集中在心理侧写师的身份伏笔上。</div>
+            </div>
+            <div class="news-item">
+              <div class="news-title">《沙丘2》加长剪辑版上线 增加家族背景戏份</div>
+              <div class="news-date">2026-11-06</div>
+              <div class="news-summary">加长版比公映版多出约30分钟，主要补充厄崔迪家族的政治背景和沙漠场景，影迷可二刷对比。</div>
+            </div>
+            <div class="news-item">
+              <div class="news-title">自然纪录片《地球脉动·极境篇》第3集上线</div>
+              <div class="news-date">2026-11-05</div>
+              <div class="news-summary">本集聚焦深海发光生物，拍摄团队使用了新型深海摄像机，记录了多个罕见物种的活动画面。</div>
+            </div>
+            <div class="news-item">
+              <div class="news-title">《暗夜行者》第一季收官 卧底身份揭晓引热议</div>
+              <div class="news-date">2026-11-04</div>
+              <div class="news-summary">第12集播出后，关于主角最终选择的讨论在剧迷社区持续发酵，制作方尚未公布第二季计划。</div>
+            </div>
+            <div class="news-item">
+              <div class="news-title">《风味人间·海鲜季》更新 聚焦东亚赶海文化</div>
+              <div class="news-date">2026-11-03</div>
+              <div class="news-summary">第5集记录了浙江、福建沿海的赶海人生活，展现了潮汐与餐桌之间的直接联系。</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. 相关推荐 -->
+        <section class="section" id="related">
+          <div class="section-header">
+            <h2>相关推荐方向</h2>
+          </div>
+          <div class="tag-cloud">
+            <a href="#featured">时间循环题材</a>
+            <a href="#featured">太空歌剧</a>
+            <a href="#featured">犯罪心理侧写</a>
+            <a href="#featured">法庭辩论剧</a>
+            <a href="#featured">自然生态纪录片</a>
+            <a href="#featured">美食人文纪录</a>
+            <a href="#featured">国产悬疑短剧</a>
+            <a href="#featured">导演剪辑版电影</a>
+          </div>
+        </section>
+
+        <!-- 11. 补充板块：热门榜单 -->
+        <section class="section" id="ranking">
+          <div class="section-header">
+            <h2>本周热门观看榜单</h2>
+          </div>
+          <div class="rank-list">
+            <div class="rank-item"><span class="rank-num">1</span><span class="rank-name">星际穿越 4K 修复版</span><span class="rank-score">9.4</span></div>
+            <div class="rank-item"><span class="rank-num">2</span><span class="rank-name">迷雾追踪</span><span class="rank-score">8.7</span></div>
+            <div class="rank-item"><span class="rank-num">3</span><span class="rank-name">地球脉动·极境篇</span><span class="rank-score">9.6</span></div>
+            <div class="rank-item"><span class="rank-num">4</span><span class="rank-name">沙丘2 加长剪辑版</span><span class="rank-score">8.9</span></div>
+            <div class="rank-item"><span class="rank-num">5</span><span class="rank-name">消失的证人</span><span class="rank-score">8.5</span></div>
+            <div class="rank-item"><span class="rank-num">6</span><span class="rank-name">风味人间·海鲜季</span><span class="rank-score">9.2</span></div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- 右侧辅助栏 -->
+      <aside class="sidebar-right" aria-label="辅助信息">
+        <div class="sidebar-panel">
+          <h3>热榜速览</h3>
+          <div class="ranking-list">
+            <div class="ranking-item"><span class="idx top">1</span><span class="rname">星际穿越 4K修复版</span><span class="rheat">2.3万</span></div>
+            <div class="ranking-item"><span class="idx top">2</span><span class="rname">迷雾追踪</span><span class="rheat">1.9万</span></div>
+            <div class="ranking-item"><span class="idx top">3</span><span class="rname">地球脉动·极境篇</span><span class="rheat">1.7万</span></div>
+            <div class="ranking-item"><span class="idx">4</span><span class="rname">消失的证人</span><span class="rheat">1.4万</span></div>
+            <div class="ranking-item"><span class="idx">5</span><span class="rname">沙丘2 加长版</span><span class="rheat">1.2万</span></div>
+          </div>
+        </div>
+        <div class="sidebar-panel">
+          <h3>更新动态</h3>
+          <div class="update-stream">
+            <div class="update-item"><span class="time-dot">今天</span>迷雾追踪 第6集</div>
+            <div class="update-item"><span class="time-dot">今天</span>星际穿越 4K修复版</div>
+            <div class="update-item"><span class="time-dot">昨天</span>消失的证人 第8集</div>
+            <div class="update-item"><span class="time-dot">昨天</span>暗夜行者 第12集</div>
+            <div class="update-item"><span class="time-dot">11月7日</span>沙丘2 加长版</div>
+            <div class="update-item"><span class="time-dot">11月6日</span>地球脉动 第3集</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom:8px;">
+          <div class="brand-logo" aria-hidden="true">影</div>
+          <span class="brand-name">电影天堂</span>
+        </div>
+        <p>汇聚科幻、悬疑、剧情、动作等类型的在线免费观看指南与片单推荐，提供更新动态和分类筛选，帮助观众快速发现可看内容。</p>
+      </div>
+      <div class="footer-col">
+        <h4>类型</h4>
+        <ul>
+          <li><a href="#featured">科幻</a></li>
+          <li><a href="#featured">悬疑</a></li>
+          <li><a href="#featured">剧情</a></li>
+          <li><a href="#featured">动作</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>频道</h4>
+        <ul>
+          <li><a href="#latest">最新更新</a></li>
+          <li><a href="#ranking">热门榜单</a></li>
+          <li><a href="#news">相关资讯</a></li>
+          <li><a href="#comments">用户评论</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>帮助</h4>
+        <ul>
+          <li><a href="#faq">常见问题</a></li>
+          <li><a href="#guide">体验指南</a></li>
+          <li><a href="#deep-dive">深度解析</a></li>
+          <li><a href="#overview">内容概览</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>部分内容为示例数据，仅用于展示页面结构。 © 2026 电影天堂</p>
+    </div>
+  </footer>
+
+  <!-- 内联脚本：搜索与交互 -->
+  <script>
+    (function() {
+      // 搜索开关
+      var toggle = document.getElementById('searchToggle');
+      var bar = document.getElementById('searchBar');
+      var input = document.getElementById('searchInput');
+      var btn = document.getElementById('searchBtn');
+      var feedback = document.getElementById('searchFeedback');
+
+      if (toggle && bar) {
+        toggle.addEventListener('click', function() {
+          var isActive = bar.classList.toggle('active');
+          if (isActive && input) {
+            input.focus();
+          }
+        });
+      }
+
+      // 简易本地搜索：在页面可见文本中查找，并高亮或反馈
+      function performSearch() {
+        if (!input || !feedback) return;
+        var query = input.value.trim().toLowerCase();
+        if (!query) {
+          feedback.textContent = '请输入关键词，如“星际穿越”或“悬疑”。';
+          return;
+        }
+
+        // 收集所有卡片标题、列表条目名称、资讯标题等可搜索文本
+        var searchable = document.querySelectorAll('.card-title, .compact-item .name, .news-title, .category-card .cat-name, .rank-name, .rname, .tag-cloud a');
+        var found = [];
+        searchable.forEach(function(el) {
+          var text = el.textContent.toLowerCase();
+          if (text.includes(query)) {
+            found.push(el.textContent.trim());
+          }
+        });
+
+        if (found.length > 0) {
+          // 去重
+          var unique = [...new Set(found)];
+          feedback.textContent = '找到 ' + unique.length + ' 个相关条目：' + unique.slice(0, 5).join('、') + (unique.length > 5 ? ' 等' : '');
+        } else {
+          feedback.textContent = '没有找到包含“' + input.value.trim() + '”的条目，试试其他关键词。';
+        }
+      }
+
+      if (btn) {
+        btn.addEventListener('click', performSearch);
+      }
+      if (input) {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+          }
+        });
+      }
+
+      // 点击页面其他区域关闭搜索栏（可选）
+      document.addEventListener('click', function(e) {
+        if (bar && bar.classList.contains('active')) {
+          if (!bar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+            bar.classList.remove('active');
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+            </html>
